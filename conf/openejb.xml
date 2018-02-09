@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openejb>
+
+	<Resource id="mySqlDs" type="DataSource">
+		JdbcDriver com.mysql.jdbc.Driver
+		JdbcUrl jdbc:mysql://localhost/zak_database?useSSL=false&amp;serverTimezone=UTC
+		UserName zak
+		Password zak
+		JtaManaged false
+	</Resource>
+
+	<Resource id="hyperSqlDs" type="DataSource">
+		JdbcDriver org.hsqldb.jdbcDriver
+		JdbcUrl jdbc:hsqldb:file:data/hsqldb/hsqldb
+		UserName sa
+		Password
+		JtaManaged true
+	</Resource>
+
+</openejb>
