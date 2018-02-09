@@ -36,6 +36,7 @@
 			
 	<c:otherwise>
 		<h1>Déjà connecté</h1>
+		<h:outputText value = "#{loginBean.user.id}"></h:outputText>
 		<h:link outcome="displayAll?faces-redirect=true"
         value="Redirection au bureau" />
         

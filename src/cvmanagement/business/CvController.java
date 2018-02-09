@@ -111,7 +111,7 @@ public class CvController {
         cvManager.updatePerson(person);
         cvManager.cleanActivities();
         refresh();
-        return "/secured/welcome.xhtml?faces-redirect=true";
+        return "/displayAll.xhtml?faces-redirect=true";
     }
 
     public Person findPerson(String personId){

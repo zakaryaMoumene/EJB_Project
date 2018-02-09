@@ -30,6 +30,8 @@ public class LoginBean implements LoggedUser, Serializable {
     @EJB
     PersonServiceLocal pm;
 
+    PasswordAuthentification passAuth = new PasswordAuthentification();
+    
     private Person user;
 
     private String email;
@@ -40,16 +42,16 @@ public class LoginBean implements LoggedUser, Serializable {
 
     @Override
     public String doLogin() {
-        user = pm.findPersonByEmail(email);
-        System.out.println(user);
-        if (user != null && user.getPassword().equals(pwd)) {
+        Person user_t = pm.findPersonByEmail(email);
+        if (user_t != null && passAuth.authenticate(pwd, user_t.getPassword())) {
+            user = user_t;
             return navigationBean.redirectToDisplayAll();
         }
 
         FacesMessage msg = new FacesMessage("Login error!", "ERROR MSG");
         msg.setSeverity(FacesMessage.SEVERITY_ERROR);
         FacesContext.getCurrentInstance().addMessage(null, msg);
-        // To to login page
+        
         return navigationBean.redirectToLogin();
     }
 

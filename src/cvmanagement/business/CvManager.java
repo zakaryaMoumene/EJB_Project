@@ -27,8 +27,11 @@ public class CvManager implements PersonServiceLocal {
     @PersistenceContext(unitName = "cvunit")
     private EntityManager entityManager;
 
+    PasswordAuthentification passAuth = new PasswordAuthentification();
+    
     @Override
     public Long addPerson(Person person) {
+        person.setPassword(passAuth.hash(person.getPassword()));
         entityManager.persist(person);
         return person.getId();
     }

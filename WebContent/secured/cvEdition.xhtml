@@ -109,9 +109,9 @@
 			</p:contextMenu>
 
 			<p:commandLink actionListener="#{cvController.addActivity}"
-				 process="actDataTable" update="editform:actDataTable" ><i class="fa fa-plus-square" style="font-size:32px;color:blue"></i></p:commandLink>
+				 process="actDataTable" update="editform:actDataTable" ><i class="fa fa-plus-square" style="font-size:32px;color:black"></i></p:commandLink>
 <br/> <br/><br/> <br/>
-			<p:commandButton action="#{cvController.updateCv}" value="Save" style="float:right;"
+			<p:commandButton action="#{cvController.updateCv}" value="Save" style="float:right;width:50%;margin-right:25%;"
 				ajax="true" icon="ui-icon-check" validateClient="true" process="@this" update="editform:actDataTable"/>
 		</h:form>
 		</div>
