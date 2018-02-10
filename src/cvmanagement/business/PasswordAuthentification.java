@@ -1,5 +1,6 @@
 package cvmanagement.business;
 
+import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -11,7 +12,12 @@ import java.security.NoSuchAlgorithmException;
  * @author erickson
  * @see <a href="http://stackoverflow.com/a/2861125/3474">StackOverflow</a>
  */
-public class PasswordAuthentification {
+public class PasswordAuthentification  implements Serializable{
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -1942768262417817068L;
+
     public String hash(String passwordToHash) {
         String generatedPassword = null;
         try {

@@ -1,5 +1,6 @@
 package cvmanagement.entities;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 
@@ -27,9 +28,26 @@ import org.joda.time.Years;
 
 @Entity
 @Table(name = "person")
-public class Person {
+public class Person implements Serializable {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 5361089819858784513L;
 
     public Person() {
+    }
+    
+
+    public Person(String firstName, String lastName, String mail, String website, Date birthday,
+            String password) {
+        super();
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.mail = mail;
+        this.website = website;
+        this.birthday = birthday;
+        this.password = password;
     }
 
     @Id
@@ -50,12 +68,12 @@ public class Person {
     private String lastName;
 
     @NotNull(message = "Email field cannot be null!")
-    @Length(max = 50, message = "Not greater than {max} caracteres for Email field!")
+    @Length(max = 100, message = "Not greater than {max} caracteres for Email field!")
     @Column(name = "mail", length = 100, unique = true)
     @Email
     private String mail;
 
-    @Size(min = 10, max = 100, message = "Website must be between [10-100] characters")
+    @Size(min = 3, max = 100, message = "Website must be between [5-100] characters")
     @Column(name = "website", length = 50)
     private String website;
 
@@ -66,7 +84,7 @@ public class Person {
     private Date birthday;
 
     @NotNull(message = "Password may not be null")
-    @Size(min = 8, max = 50, message = "Mot de passe de taille entre 8 et 50")
+    @Size(min = 6, max = 50, message = "Mot de passe de taille entre 6 et 50")
     @Column(name = "password", length = 50)
     private String password;
 

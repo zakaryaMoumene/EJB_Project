@@ -125,7 +125,7 @@ public class CvManager implements PersonServiceLocal {
     public List<Person> search(Object[] params) {
         if (params.length < 5)
             return null;
-        String query = "SELECT p FROM Person p JOIN p.activities a WHERE";
+        String query = "SELECT DISTINCT p FROM Person p LEFT JOIN p.activities a WHERE";
         String[] paramNames = { "firstName", "lastName", "mail", "title", "year" };
         String[] queryParams = { " p.firstName", " p.lastName", " p.mail", " a.title", " a.year" };
         boolean flag = true;

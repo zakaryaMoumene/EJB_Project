@@ -31,6 +31,7 @@ public class CvController {
     @EJB
     PersonServiceLocal cvManager;
 
+    private List<Person> persons = new ArrayList<Person>();
     private List<Activity> activities_t = new ArrayList<Activity>();
 
     private List<Person> searchResult = new ArrayList<Person>();
@@ -104,7 +105,10 @@ public class CvController {
     }
 
     public List<Person> getAll() {
-        return cvManager.findAll();
+        if (persons.isEmpty()){
+            persons =  cvManager.findAll();
+        }
+        return persons;
     }
 
     public Object[] getSearchParams() {
@@ -138,7 +142,5 @@ public class CvController {
     public void setSearchResult(List<Person> searchResult) {
         this.searchResult = searchResult;
     }
-    
-    
 
 }

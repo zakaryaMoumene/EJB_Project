@@ -16,6 +16,20 @@ public class Activity {
 
     public Activity() {
     }
+    
+    
+
+    public Activity(String title, String descriptiveText, String website, String year,
+            String nature) {
+        super();
+        this.title = title;
+        this.descriptiveText = descriptiveText;
+        this.website = website;
+        this.year = year;
+        this.nature = nature;
+    }
+
+
 
     @Id
     @Column(name = "id", unique = true)
@@ -32,7 +46,7 @@ public class Activity {
     @Column(name = "descriptivetext", length = 300)
     private String descriptiveText;
 
-    @Size(min = 10, max = 100, message = "Website must be between [10-100] " + "characters")
+    @Size(min = 3, max = 100, message = "Website must be between [3-100] " + "characters")
     @Column(name = "website", length = 50)
     private String website;
 
