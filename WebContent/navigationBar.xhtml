@@ -24,11 +24,11 @@ xmlns:h="http://java.sun.com/jsf/html"
 			
 			<c:choose>
       			<c:when test="#{loginBean.user != null}" > 
-      			<p:commandLink action="#{cvController.initEdition(loginBean.user)}" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-pencil-square-o"></i> EDITER
-			</p:commandLink> 
+      			<h:link outcome="#{cvController.initEdition(loginBean.user)}" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-pencil-square-o"></i> EDITER
+			</h:link> 
 			
-          	<p:commandLink action ="#{loginBean.doLogout}" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">
-            <i class="fa fa-sign-out"></i></p:commandLink>
+          	<h:link outcome ="/logoutPage" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">
+            <i class="fa fa-sign-out"></i></h:link>
             </c:when>
             
             <c:otherwise>

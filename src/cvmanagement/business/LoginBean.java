@@ -61,12 +61,6 @@ public class LoginBean implements LoggedUser, Serializable {
         email = null;
         pwd = null;
         
-        System.out.println("khraaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-        
-        FacesMessage msg = new FacesMessage("Logout success!", "INFO MSG");
-        msg.setSeverity(FacesMessage.SEVERITY_INFO);
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-
         return navigationBean.redirectToLogin();
     }
 

@@ -100,11 +100,6 @@ public class CvController {
     }
     
 
-    public String initInfoEdition(Person p){
-        person = cvManager.findPersonByEmail(p.getMail());
-        return "/secured/infoEdition.xhtml?faces-redirect=true";
-    }
-    
     public String updateCv() {
         System.out.println(person);
         person.setActivities(activities_t);
