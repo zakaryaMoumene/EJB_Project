@@ -28,7 +28,7 @@ public class CvManager implements PersonServiceLocal {
     private EntityManager entityManager;
 
     PasswordAuthentification passAuth = new PasswordAuthentification();
-    
+
     @Override
     public Long addPerson(Person person) {
         person.setPassword(passAuth.hash(person.getPassword()));
@@ -117,78 +117,41 @@ public class CvManager implements PersonServiceLocal {
 
     @Override
     public Person findPersonById(Long personId) {
-       return entityManager.find(Person.class, personId);
+        return entityManager.find(Person.class, personId);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Person> search(Object[] params) {
+        if (params.length < 5)
+            return null;
+        String query = "SELECT p FROM Person p JOIN p.activities a WHERE";
+        String[] paramNames = { "firstName", "lastName", "mail", "title", "year" };
+        String[] queryParams = { " p.firstName", " p.lastName", " p.mail", " a.title", " a.year" };
+        boolean flag = true;
+
+        for (int i = 0; i < params.length; i++) {
+            if (params[i] != null && !params[i].equals("")) {
+                if (flag) {
+                    query += (queryParams[i] + " Like :" + paramNames[i]);
+                    flag = false;
+                } else {
+                    query += (" and " + queryParams[i] + " Like :" + paramNames[i]);
+                }
+            }
+        }
+
+        if (flag)
+            return null;
+        
+        Query requete = entityManager.createQuery(query);
+
+        for (int i = 0; i < params.length; i++) {
+            if (params[i] != null && !params[i].equals(""))
+                requete.setParameter(paramNames[i], params[i]);
+        }
+
+        return requete.getResultList();
     }
 
 }
-
-// package cvmanagement.business;
-//
-// import javax.ejb.Stateless;
-// import javax.ejb.TransactionManagement;
-// import javax.ejb.TransactionManagementType;
-// import javax.persistence.EntityManager;
-// import javax.persistence.PersistenceContext;
-// import javax.persistence.Query;
-//
-// import cvmanagement.entities.Person;
-//
-// @Stateless
-// @TransactionManagement(TransactionManagementType.CONTAINER)
-// public class PersonManager implements PersonServiceLocal {
-//
-// @PersistenceContext(unitName = "cvunit")
-// private EntityManager entityManager;
-//
-// @Override
-// public Long addPerson(Person person) {
-// entityManager.persist(person);
-// return person.getId();
-// }
-//
-// @Override
-// public Person findPersonById(Long personId) {
-// return entityManager.find(Person.class, personId);
-// }
-//
-// @Override
-// public Person findPersonByFirstName(String firstName) {
-// return null;
-//
-// }
-//
-// @Override
-// public Person findPersonByLastName(String lastName) {
-// // TODO Auto-generated method stub
-// return null;
-// }
-//
-// @Override
-// public Person findPersonByEmail(String email) {
-// Query query = entityManager.createQuery("SELECT p FROM Person p WHERE p.mail
-// LIKE ?1");
-// query.setParameter(1, email);
-// if(query.getResultList().isEmpty())
-// return null;
-// return (Person) query.getSingleResult();
-// }
-//
-// @Override
-// public int editPerson(Person person) {
-// // TODO Auto-generated method stub
-// return 0;
-// }
-//
-// @Override
-// public int deletePersonById(Long personId) {
-// // TODO Auto-generated method stub
-// return 0;
-// }
-//
-// @Override
-// public void deleteAll() {
-// entityManager.createNativeQuery("delete from activity").executeUpdate();
-// entityManager.createNativeQuery("delete from person").executeUpdate();
-// }
-//
-// }

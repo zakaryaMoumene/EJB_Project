@@ -27,8 +27,25 @@ html {
     text-align: center;
 }
 
-button {
-	overflow: visible;
+button{
+	width: 260px;
+	height: 35px;
+	background: #fff;
+	border: 1px solid #fff;
+	cursor: pointer;
+	border-radius: 2px;
+	color: #a18d6c;
+	font-family: 'Exo', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 6px;
+	margin-top: 10px;
+	-webkit-transition: .5s ease;
+    transition: .5s ease;
+}
+
+button:hover{
+	background: #d8d8af;	
 }
 
 button, select {
@@ -245,15 +262,18 @@ select::-ms-expand {
 }
 
 ::-webkit-input-placeholder {
-	color: #858281;
+	color: #404040;
+	font-weight: 600;
 }
 
 :-moz-placeholder {
-	color: #858281;
+	color: #404040;
+	font-weight: 600;
 }
 
 ::-moz-placeholder {
-	color: #000000;
+	color: #404040;
+	font-weight: 600;
 }
 
 .notification2 div{
@@ -267,7 +287,8 @@ select::-ms-expand {
 
 
 :-ms-input-placeholder {
-	color: #474544;
+	color: #404040;
+	font-weight: 600;
 }
 
 #errorContainer_left{
@@ -320,6 +341,11 @@ select::-ms-expand {
 #form_button:hover {
 	background: #474544;
 	color: #F2F3EB;
+}
+
+.material-icons:hover {
+	
+	color:#0000ff;
 }
 
 @media screen and (max-width: 768px) {
@@ -547,6 +573,10 @@ body::-webkit-scrollbar-track {
 body::-webkit-scrollbar-thumb {
   background-color: darkgrey;
   outline: 1px solid slategrey;
+}
+
+input, label {
+    display:block;
 }
 
 

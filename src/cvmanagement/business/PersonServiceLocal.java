@@ -33,5 +33,7 @@ public interface PersonServiceLocal {
     public List<Person> findAll();
 
     Person findPersonById(Long personId);
-
+    
+    public List<Person> search(Object[] params);
+    
 }

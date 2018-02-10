@@ -32,25 +32,12 @@ public class CvController {
     PersonServiceLocal cvManager;
 
     private List<Activity> activities_t = new ArrayList<Activity>();
-    
+
+    private List<Person> searchResult = new ArrayList<Person>();
+
+    private Object[] searchParams = new Object[5];
+
     private Person person;
-
-
-    public List<Activity> getActivities_t() {
-        return activities_t;
-    }
-
-    public void setActivities_t(List<Activity> activities_t) {
-        this.activities_t = activities_t;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
-    }
-
-    public Person getPerson() {
-        return person;
-    }
 
     public String displayCv(Person p) {
         person = p;
@@ -59,6 +46,10 @@ public class CvController {
 
     public List<String> getNatures() {
         return Arrays.asList(natures);
+    }
+
+    public void search() {
+        searchResult = cvManager.search(searchParams);
     }
 
     public String initEdition(Person p) {
@@ -95,10 +86,9 @@ public class CvController {
         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Activity deleted",
                 "Activity deleted");
         FacesContext.getCurrentInstance().addMessage(null, msg);
-        
+
         activities_t.remove(activity);
     }
-    
 
     public String updateCv() {
         System.out.println(person);
@@ -109,11 +99,46 @@ public class CvController {
         return "/displayAll.xhtml?faces-redirect=true";
     }
 
-    public Person findPerson(String personId){
+    public Person findPerson(String personId) {
         return cvManager.findPersonById(Long.valueOf(personId));
     }
-    
-    public List<Person> getAll(){
+
+    public List<Person> getAll() {
         return cvManager.findAll();
     }
+
+    public Object[] getSearchParams() {
+        return searchParams;
+    }
+
+    public void setSearchParams(Object[] searchParams) {
+        this.searchParams = searchParams;
+    }
+
+    public List<Activity> getActivities_t() {
+        return activities_t;
+    }
+
+    public void setActivities_t(List<Activity> activities_t) {
+        this.activities_t = activities_t;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
+    public List<Person> getSearchResult() {
+        return searchResult;
+    }
+
+    public void setSearchResult(List<Person> searchResult) {
+        this.searchResult = searchResult;
+    }
+    
+    
+
 }

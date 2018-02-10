@@ -110,9 +110,10 @@
 
 			<p:commandLink actionListener="#{cvController.addActivity}"
 				 process="actDataTable" update="editform:actDataTable" ><i class="fa fa-plus-square" style="font-size:32px;color:black"></i></p:commandLink>
-<br/> <br/><br/> <br/>
-			<p:commandButton action="#{cvController.updateCv}" value="Save" style="float:right;width:50%;margin-right:25%;"
-				ajax="true" icon="ui-icon-check" validateClient="true" process="@this" update="editform:actDataTable"/>
+<br/> <br/><br/>
+			<p:commandButton action="#{cvController.updateCv}" value="CONFIRMER" style="float:right;width:30%;margin-right:35%;"
+				ajax="true" validateClient="true" process="@this" update="editform:actDataTable"/>
+		<br/> 
 		</h:form>
 		</div>
 </h:body>
