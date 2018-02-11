@@ -17,8 +17,8 @@
       <div class="body2"></div>
       <div id="container">
          <h:form id="form">
-    <p:dataGrid var="person" value="#{cvController.getAll()}" columns="3" layout="grid"
-        rows="2" paginator="true" id="persons"
+    <p:dataGrid var="person" value="#{cvController.getAll()}" columns="4" layout="grid"
+        rows="8" paginator="true" id="persons"
         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
         >
  
@@ -30,7 +30,7 @@
             <h:panelGrid columns="1" style="width:100%">
                         <h:link outcome="cvDisplay" >
 			    <f:param name="id" value="#{person.id}" />
-			    <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />
+			    <img src="https://image.freepik.com/free-icon/user-warning_318-55040.jpg" alt="Picture not found" height="100" width="100" style="margin-left:25%;"/>
 			</h:link>
             </h:panelGrid>
         </p:panel>

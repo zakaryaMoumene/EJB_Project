@@ -44,6 +44,10 @@ public class CvController {
         person = p;
         return "/cvDisplay.xhtml?faces-redirect=true";
     }
+    
+    public boolean validate(){
+        return FacesContext.getCurrentInstance().isValidationFailed();
+    }
 
     public List<String> getNatures() {
         return Arrays.asList(natures);
@@ -92,7 +96,6 @@ public class CvController {
     }
 
     public String updateCv() {
-        System.out.println(person);
         person.setActivities(activities_t);
         cvManager.updatePerson(person);
         cvManager.cleanActivities();

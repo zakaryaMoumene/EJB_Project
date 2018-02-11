@@ -23,26 +23,26 @@
 			<p:growl id="msgs" showDetail="true" />
 			<h:panelGrid columns="5" >
 							<p:inputText id="modelInput" value="#{cvController.person.firstName}"
-								><p:ajax event="keyup"/></p:inputText>
+								><p:ajax event="keyup" update=":editform:submitButton"/></p:inputText>
 								
-							<p:inputText value="#{cvController.person.lastName}" style="width:100%" ><p:ajax event="keyup"/></p:inputText>
+							<p:inputText value="#{cvController.person.lastName}" style="width:100%" ><p:ajax event="keyup" update=":editform:submitButton"/></p:inputText>
 								
-							<p:inputText value="#{cvController.person.website}" style="width:100%" ><p:ajax event="keyup"/></p:inputText>
-							<p:inputText value="#{cvController.person.mail}" style="width:100%" label="Year" ><p:ajax event="keyup"/></p:inputText>
-							<p:calendar id="event" value="#{cvController.person.birthday}">
-            <p:ajax event="dateSelect" listener="#{cvController.onCellEdit}" update="editform:msgs" />
+							<p:inputText value="#{cvController.person.website}" style="width:100%" ><p:ajax event="keyup" update=":editform:submitButton"/></p:inputText>
+							<p:inputText value="#{cvController.person.mail}" style="width:100%"><p:ajax event="keyup" update=":editform:submitButton"/></p:inputText>
+							<p:calendar  value="#{cvController.person.birthday}">
+            <p:ajax event="dateSelect" listener="#{cvController.onCellEdit}" update="editform:msgs :editform:submitButton" />
         </p:calendar>
 			</h:panelGrid>
 			<p:dataTable id="actDataTable" var="act"
 				value="#{cvController.activities_t}" editable="true"
 				editMode="cell" widgetVar="cellAct">
 				<p:ajax event="cellEdit" listener="#{cvController.onCellEdit}"
-					update="editform:msgs" />
+					update="editform:msgs :editform:submitButton" />
 				
 							<h:inputHidden value="#{act.id}" 
 								style="width:96%" />
 								
-				<p:column headerText="Title">
+				<p:column headerText="Title" style="width:15%">
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{act.title}" class="dis"/>
@@ -53,18 +53,7 @@
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
-				<p:column headerText="Descriptive Text">
-					<p:cellEditor>
-						<f:facet name="output">
-							<h:outputLabel value="#{act.descriptiveText}" class="dis" />
-						</f:facet>
-						<f:facet name="input">
-							<p:inputTextarea value="#{act.descriptiveText}" rows="6"
-								cols="33" style="width:96%" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
-				<p:column headerText="Website">
+				<p:column headerText="Website" style="width:15%">
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{act.website}" class="dis"/>
@@ -74,17 +63,7 @@
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
-				<p:column headerText="Year">
-					<p:cellEditor>
-						<f:facet name="output">
-							<h:outputText value="#{act.year}" class="dis"/>
-						</f:facet>
-						<f:facet name="input">
-							<p:inputText value="#{act.year}" type="number" min="1950" max="2018" step="1" style="width:96%" label="Year" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
-				<p:column headerText="Nature">
+				<p:column headerText="Nature" style="width:15%">
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{act.nature}" class="dis"/>
@@ -97,8 +76,29 @@
 						</f:facet>
 					</p:cellEditor>
 					</p:column>
+				<p:column headerText="Year" style="width:5%">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{act.year}" class="dis"/>
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{act.year}" type="number" min="1950" max="2018" step="1" style="width:96%" label="Year" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+					<p:column headerText="Descriptive Text">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputLabel value="#{act.descriptiveText}" class="dis" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputTextarea value="#{act.descriptiveText}" rows="6"
+								cols="33" style="width:96%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
 				<p:column style="width:5%;">
-					<p:commandLink action="#{cvController.deleteActivity(act)}" process="actDataTable" update=":editform:actDataTable" ><i class="material-icons" style="font-size:32px;color:red">cancel</i></p:commandLink>
+					<p:commandLink action="#{cvController.deleteActivity(act)}" process="actDataTable" update=":editform:actDataTable :editform:submitButton" ><i class="material-icons" style="font-size:32px;color:red">cancel</i></p:commandLink>
 				</p:column>
 			</p:dataTable>
 			<p:contextMenu for="actDataTable" widgetVar="cMenu">
@@ -111,8 +111,10 @@
 			<p:commandLink actionListener="#{cvController.addActivity}"
 				 process="actDataTable" update="editform:actDataTable" ><i class="fa fa-plus-square" style="font-size:32px;color:black"></i></p:commandLink>
 <br/> <br/><br/>
-			<p:commandButton action="#{cvController.updateCv}" value="CONFIRMER" style="float:right;width:30%;margin-right:35%;"
-				ajax="true" validateClient="true" process="@this" update="editform:actDataTable"/>
+
+					<p:commandButton id="submitButton" action="#{cvController.updateCv}" value="CONFIRMER" style="float:right;width:30%;margin-right:35%;"
+						ajax="true" validateClient="true" process="@this" update="editform:actDataTable"  disabled="#{facesContext.validationFailed}">
+						</p:commandButton>
 		<br/> 
 		</h:form>
 		</div>
