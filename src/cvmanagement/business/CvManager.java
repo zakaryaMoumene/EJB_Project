@@ -19,10 +19,6 @@ public class CvManager implements PersonServiceLocal {
     private static final String SELECT_ALL = "SELECT p FROM Person p";
     private static final String SELECT_MAIL = "SELECT p FROM Person p WHERE p.mail=:mail";
     private static final String PARAM_MAIL = "mail";
-    private static final String SELECT_FIRSTNAME = "SELECT p FROM Person p WHERE p.firstname=:firstname";
-    private static final String PARAM_FIRSTNAME = "firstname";
-    private static final String SELECT_LASTNAME = "SELECT p FROM Person p WHERE p.lastname=:lastname";
-    private static final String PARAM_LASTNAME = "lastname";
 
     @PersistenceContext(unitName = "cvunit")
     private EntityManager entityManager;
@@ -34,24 +30,6 @@ public class CvManager implements PersonServiceLocal {
         person.setPassword(passAuth.hash(person.getPassword()));
         entityManager.persist(person);
         return person.getId();
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    // if firstname is not unique so we must change return type to List
-    public List<Person> findPersonByFirstName(String firstName) {
-        Query requete = entityManager.createQuery(SELECT_FIRSTNAME);
-        requete.setParameter(PARAM_FIRSTNAME, firstName);
-        return (List<Person>) requete.getResultList();
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    // if lastname is not unique so we must change return type to List
-    public List<Person> findPersonByLastName(String lastName) {
-        Query requete = entityManager.createQuery(SELECT_LASTNAME);
-        requete.setParameter(PARAM_LASTNAME, lastName);
-        return (List<Person>) requete.getResultList();
     }
 
     @Override
@@ -128,22 +106,25 @@ public class CvManager implements PersonServiceLocal {
         String query = "SELECT DISTINCT p FROM Person p LEFT JOIN p.activities a WHERE";
         String[] paramNames = { "firstName", "lastName", "mail", "title", "year" };
         String[] queryParams = { " p.firstName", " p.lastName", " p.mail", " a.title", " a.year" };
+        String[] operators = { " LIKE :", " LIKE :", " LIKE :", " LIKE :", " = :" };
         boolean flag = true;
 
         for (int i = 0; i < params.length; i++) {
             if (params[i] != null && !params[i].equals("")) {
                 if (flag) {
-                    query += (queryParams[i] + " Like :" + paramNames[i]);
+                    query += (queryParams[i] + operators[i] + paramNames[i]);
                     flag = false;
                 } else {
-                    query += (" and " + queryParams[i] + " Like :" + paramNames[i]);
+                    query += (" and " + queryParams[i] + operators[i] + paramNames[i]);
                 }
             }
         }
-
+        
         if (flag)
             return null;
         
+        System.out.println(query);
+
         Query requete = entityManager.createQuery(query);
 
         for (int i = 0; i < params.length; i++) {
@@ -151,6 +132,7 @@ public class CvManager implements PersonServiceLocal {
                 requete.setParameter(paramNames[i], params[i]);
         }
 
+        
         return requete.getResultList();
     }
 

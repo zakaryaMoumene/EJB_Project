@@ -31,7 +31,7 @@ public class TestDB4 {
         activity.setNature("autre");
         activity.setTitle("dzhdh");
         activity.setWebsite("www.zak.fr");
-        activity.setYear("2015");
+        activity.setYear(2015);
         List<Activity> activities = new ArrayList<Activity>();
         activities.add(activity);
 
@@ -40,7 +40,7 @@ public class TestDB4 {
         activity2.setNature("autre");
         activity2.setTitle("yeeeee");
         activity2.setWebsite("www.mjid.fr");
-        activity2.setYear("2017");
+        activity2.setYear(2017);
         List<Activity> activities2 = new ArrayList<Activity>();
         activities2.add(activity2);
 

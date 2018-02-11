@@ -1,9 +1,7 @@
 package cvmanagement.test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.ejb.EJB;
+import javax.ejb.embeddable.EJBContainer;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,6 +14,7 @@ public class TestDB3 {
     PersonServiceLocal pm;
 
     public TestDB3() throws Exception {
+        EJBContainer.createEJBContainer().getContext().bind("inject", this);
     }
 
     @Before
@@ -25,17 +24,11 @@ public class TestDB3 {
     
     @Test
     public void test(){
-        List<Object> params = new ArrayList<Object>();
-        params.add(null);
-        params.add(null);
-        params.add(null);
-        params.add(null);
-        params.add(null);
+        Object[] params = new Object[5];
         
-        params.set(0,"houssem");
-        params.set(1,"mjid");
-        params.set(4,"2017");
-        System.out.println(params);
+        params[4] = 2017;
+        
+        System.out.println(pm.search(params));
         
     }
 

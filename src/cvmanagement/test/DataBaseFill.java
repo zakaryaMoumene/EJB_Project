@@ -58,7 +58,7 @@ public class DataBaseFill {
                 // use comma as separator
                 String[] activity = line.split(cvsSplitBy);
 
-                activities.add(new Activity(activity[0],activity[1],activity[2],activity[3],natures[rand.nextInt(3)]));
+                activities.add(new Activity(activity[0],activity[1],activity[2],Integer.valueOf(activity[3]),natures[rand.nextInt(3)]));
             }
 
         } catch (IOException e) {
@@ -82,7 +82,7 @@ public class DataBaseFill {
 
                 int i=k;
                 int j;
-                for(j=i; j<i+rand.nextInt(9)+1;j++)
+                for(j=i; j<i+rand.nextInt(6)+3;j++)
                     p.getActivities().add(activities.get(j));
                 
                 k=j;

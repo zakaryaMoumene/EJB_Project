@@ -12,10 +12,6 @@ public interface PersonServiceLocal {
 
 	public Long addPerson(Person person);
 
-	public List<Person> findPersonByFirstName(String firstName);
-
-	public List<Person> findPersonByLastName(String lastName);
-
 	public Person findPersonByEmail(String personEmail);
 
 	public void updatePerson(Person person);
@@ -24,7 +20,7 @@ public interface PersonServiceLocal {
 	
 	public void deleteAll();
 
-    Long saveActivity(Activity activity, Person person);
+    public Long saveActivity(Activity activity, Person person);
 
     void deleteActivity(Activity activity, Person person);
     
@@ -32,7 +28,7 @@ public interface PersonServiceLocal {
 
     public List<Person> findAll();
 
-    Person findPersonById(Long personId);
+    public Person findPersonById(Long personId);
     
     public List<Person> search(Object[] params);
     

@@ -22,13 +22,10 @@
 		<h:form id="searchForm">
 			<p:growl id="msgs" showDetail="true" />
 			<h:panelGrid columns="5" >
-							<p:inputText placeholder="Prénom" value="#{cvController.searchParams[0]}"
-								><p:ajax event="keyup"/></p:inputText>
-								
-							<p:inputText placeholder="Nom" value="#{cvController.searchParams[1]}" style="width:100%" ><p:ajax event="keyup"/></p:inputText>
-								
-							<p:inputText placeholder="Email" value="#{cvController.searchParams[2]}" style="width:100%" ><p:ajax event="keyup"/></p:inputText>
-							<p:inputText placeholder="Titre d'une activité" value="#{cvController.searchParams[3]}" style="width:100%" label="Year" ><p:ajax event="keyup"/></p:inputText>
+							<p:inputText placeholder="Prénom" value="#{cvController.searchParams[0]}"><p:ajax event="keyup"/></p:inputText>
+							<p:inputText placeholder="Nom" value="#{cvController.searchParams[1]}" ><p:ajax event="keyup"/></p:inputText>
+							<p:inputText placeholder="Email" value="#{cvController.searchParams[2]}" ><p:ajax event="keyup"/></p:inputText>
+							<p:inputText placeholder="Titre d'une activité" value="#{cvController.searchParams[3]}" ><p:ajax event="keyup"/></p:inputText>
 							<p:inputText placeholder="Année d'une activité" value="#{cvController.searchParams[4]}"><p:ajax event="keyup"/></p:inputText>
 			</h:panelGrid>
 <br/> <br/>

@@ -22,7 +22,12 @@ public class LoginBean implements LoggedUser, Serializable {
     /**
      * 
      */
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -5211546593741282783L;
+
+    /**
+     * 
+     */
+
 
     @ManagedProperty(value = "#{navigationBean}")
     private NavigationBean navigationBean;

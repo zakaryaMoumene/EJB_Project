@@ -1,25 +1,34 @@
 package cvmanagement.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "activity")
-public class Activity {
+public class Activity implements Serializable{
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 6835224882692928671L;
 
     public Activity() {
     }
     
     
 
-    public Activity(String title, String descriptiveText, String website, String year,
+    public Activity(String title, String descriptiveText, String website, Integer year,
             String nature) {
         super();
         this.title = title;
@@ -52,7 +61,9 @@ public class Activity {
 
     @NotNull
     @Column(name = "year")
-    private String year;
+    @Max(value=2018)
+    @Min(value=1950)
+    private Integer year;
 
     @NotNull
     @Column(name = "nature")
@@ -91,13 +102,19 @@ public class Activity {
         this.website = website;
     }
 
-    public String getYear() {
+   
+
+    public Integer getYear() {
         return year;
     }
 
-    public void setYear(String year) {
+
+
+    public void setYear(Integer year) {
         this.year = year;
     }
+
+
 
     public String getNature() {
         return nature;

@@ -24,7 +24,7 @@ xmlns:h="http://java.sun.com/jsf/html"
 			
 			<c:choose>
       			<c:when test="#{loginBean.user != null}" > 
-      			<h:link outcome="#{cvController.initEdition(loginBean.user)}" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-pencil-square-o"></i> EDITER VOTRE PROFILE
+      			<h:link outcome="#{cvController.initEdition()}" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-pencil-square-o"></i> EDITER VOTRE PROFILE
 			</h:link> 
 			
           	<h:link outcome ="/logoutPage" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">

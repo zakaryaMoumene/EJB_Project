@@ -22,16 +22,18 @@ public class CvController {
     public final static String[] natures;
 
     static {
-        natures = new String[3];
-        natures[0] = "Experience professionnelle";
-        natures[1] = "Formation";
-        natures[2] = "Autre";
+        natures = new String[4];
+        natures[0] = "Selectionner";
+        natures[1] = "experience professionnelle";
+        natures[2] = "formation";
+        natures[3] = "autre";
     }
 
     @EJB
     PersonServiceLocal cvManager;
 
     private List<Person> persons = new ArrayList<Person>();
+    
     private List<Activity> activities_t = new ArrayList<Activity>();
 
     private List<Person> searchResult = new ArrayList<Person>();
@@ -39,15 +41,6 @@ public class CvController {
     private Object[] searchParams = new Object[5];
 
     private Person person;
-
-    public String displayCv(Person p) {
-        person = p;
-        return "/cvDisplay.xhtml?faces-redirect=true";
-    }
-    
-    public boolean validate(){
-        return FacesContext.getCurrentInstance().isValidationFailed();
-    }
 
     public List<String> getNatures() {
         return Arrays.asList(natures);
@@ -57,8 +50,9 @@ public class CvController {
         searchResult = cvManager.search(searchParams);
     }
 
-    public String initEdition(Person p) {
-        person = cvManager.findPersonByEmail(p.getMail());
+    public String initEdition() {
+        person = ((LoginBean) SessionUtils.getSession().getAttribute("loginBean")).getUser();
+        refresh();
         activities_t.clear();
         activities_t.addAll(person.getActivities());
         return "/secured/cvEdition.xhtml?faces-redirect=true";
@@ -66,8 +60,6 @@ public class CvController {
 
     public void refresh() {
         person = cvManager.findPersonByEmail(person.getMail());
-        LoginBean lb = (LoginBean) SessionUtils.getSession().getAttribute("loginBean");
-        lb.setUser(person);
     }
 
     public void onCellEdit(CellEditEvent event) {
