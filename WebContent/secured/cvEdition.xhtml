@@ -22,7 +22,7 @@
 		<h:form id="editform">
 			<p:growl id="msgs" showDetail="true" />
 			<h:panelGrid columns="5" >
-							<p:inputText id="modelInput" value="#{cvController.person.firstName}"
+							<p:inputText value="#{cvController.person.firstName}"
 								><p:ajax event="keyup" update=":editform:submitButton"/></p:inputText>
 								
 							<p:inputText value="#{cvController.person.lastName}" style="width:100%" ><p:ajax event="keyup" update=":editform:submitButton"/></p:inputText>
@@ -69,7 +69,7 @@
 							<h:outputText value="#{act.year}" class="dis"/>
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{act.year}" type="number" min="1950" max="2018" step="1" style="width:96%" label="Year" />
+							<p:inputText value="#{act.year}" type="number" min="1950" max="2018" step="1" style="width:96%"/>
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
@@ -111,7 +111,6 @@
 			<p:commandLink actionListener="#{cvController.addActivity}"
 				 process="actDataTable" update="editform:actDataTable editform:submitButton" ><i class="fa fa-plus-square" style="font-size:32px;color:black"></i></p:commandLink>
 <br/> <br/><br/>
-
 					<p:commandButton id="submitButton" action="#{cvController.updateCv}" value="CONFIRMER" style="float:right;width:30%;margin-right:35%;"
 						ajax="true" update="editform:actDataTable"  disabled="#{facesContext.validationFailed}">
 						</p:commandButton>

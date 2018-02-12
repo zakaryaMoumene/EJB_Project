@@ -8,6 +8,7 @@ import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.validation.Valid;
 
 import org.hibernate.Hibernate;
 
@@ -28,7 +29,7 @@ public class CvManager implements PersonServiceLocal {
     PasswordAuthentification passAuth = new PasswordAuthentification();
 
     @Override
-    public Long addPerson(Person person) {
+    public Long addPerson(@Valid Person person) {
         person.setPassword(passAuth.hash(person.getPassword()));
         entityManager.persist(person);
         return person.getId();
@@ -47,7 +48,7 @@ public class CvManager implements PersonServiceLocal {
     }
 
     @Override
-    public void updatePerson(Person person) {
+    public void updatePerson(@Valid Person person) {
         entityManager.merge(person);
     }
 
@@ -64,7 +65,7 @@ public class CvManager implements PersonServiceLocal {
     }
 
     @Override
-    public Long saveActivity(Activity activity, Person person) {
+    public Long saveActivity(@Valid Activity activity, @Valid Person person) {
         for (Activity a : person.getActivities())
             if (a.getId() == activity.getId()) {
                 person.getActivities().remove(a);
@@ -78,7 +79,7 @@ public class CvManager implements PersonServiceLocal {
     }
 
     @Override
-    public void deleteActivity(Activity activity, Person person) {
+    public void deleteActivity(@Valid Activity activity, @Valid Person person) {
         person.getActivities().remove(activity);
         if (activity.getId() != null)
             entityManager.merge(person);

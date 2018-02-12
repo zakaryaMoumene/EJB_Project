@@ -28,10 +28,6 @@
         <welcome-file>index.xhtml</welcome-file>
     </welcome-file-list>
     
-    <session-config>   
-  <session-timeout>20</session-timeout>   
-</session-config>   
-    
 	<!-- <filter>
 		<filter-name>AuthFilter</filter-name>
 		<filter-class>cvmanagement.business.AuthorizationFilter</filter-class>

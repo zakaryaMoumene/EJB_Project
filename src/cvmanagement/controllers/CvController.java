@@ -1,10 +1,11 @@
-package cvmanagement.business;
+package cvmanagement.controllers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.enterprise.context.ApplicationScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -12,6 +13,8 @@ import javax.faces.context.FacesContext;
 
 import org.primefaces.event.CellEditEvent;
 
+import cvmanagement.business.PersonServiceLocal;
+import cvmanagement.business.SessionUtils;
 import cvmanagement.entities.Activity;
 import cvmanagement.entities.Person;
 
@@ -32,6 +35,7 @@ public class CvController {
     @EJB
     PersonServiceLocal cvManager;
 
+    @ApplicationScoped
     private List<Person> persons = new ArrayList<Person>();
 
     private List<Activity> activities_t = new ArrayList<Activity>();
@@ -51,11 +55,17 @@ public class CvController {
     }
 
     public String initEdition() {
-        person = ((LoginBean) SessionUtils.getSession().getAttribute("loginBean")).getUser();
-        refresh();
-        activities_t.clear();
-        activities_t.addAll(person.getActivities());
-        return "/secured/cvEdition.xhtml?faces-redirect=true";
+        Object o = SessionUtils.getSession().getAttribute("loginBean");
+        
+        if (o instanceof LoginBean && ((LoginBean) o).isLoggedIn()) {
+
+            person = ((LoginBean) o).getUser();
+            refresh();
+            activities_t.clear();
+            activities_t.addAll(person.getActivities());
+            return "/secured/cvEdition.xhtml?faces-redirect=true";
+        }
+        return "/errorPage.xhtml";
     }
 
     public void refresh() {

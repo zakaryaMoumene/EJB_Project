@@ -1,4 +1,4 @@
-package cvmanagement.business;
+package cvmanagement.controllers;
 
 import java.io.Serializable;
 
@@ -12,22 +12,24 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+import cvmanagement.business.NavigationBean;
+import cvmanagement.business.PasswordAuthentification;
+import cvmanagement.business.PersonServiceLocal;
 import cvmanagement.entities.Person;
 
 @ManagedBean
 @SessionScoped
 @TransactionManagement(TransactionManagementType.CONTAINER)
-public class LoginBean implements LoggedUser, Serializable {
+public class LoginBean implements Login, Serializable {
 
     /**
      * 
      */
-    private static final long serialVersionUID = -5211546593741282783L;
+    private static final long serialVersionUID = 6854934595541609591L;
 
     /**
      * 
      */
-
 
     @ManagedProperty(value = "#{navigationBean}")
     private NavigationBean navigationBean;
@@ -36,8 +38,10 @@ public class LoginBean implements LoggedUser, Serializable {
     PersonServiceLocal pm;
 
     PasswordAuthentification passAuth = new PasswordAuthentification();
-    
-    private Person user;
+
+    private Person user = null;
+
+    private Person newUser = null;
 
     private String email;
     private String pwd;
@@ -56,17 +60,32 @@ public class LoginBean implements LoggedUser, Serializable {
         FacesMessage msg = new FacesMessage("Login error!", "ERROR MSG");
         msg.setSeverity(FacesMessage.SEVERITY_ERROR);
         FacesContext.getCurrentInstance().addMessage(null, msg);
-        
+
         return navigationBean.redirectToLogin();
     }
 
     @Remove
     public String doLogout() {
+        System.out.println("aaaaaaaaadqsdqaaaaaaaaaaa");
         user = null;
         email = null;
         pwd = null;
-        
+
         return navigationBean.redirectToLogin();
+    }
+
+    @Override
+    public String createNewUser() {
+        newUser = new Person();
+        return "/signIn.xhtml?faces-redirect=true";
+    }
+
+    @Override
+    public String doSignIn() {
+        user = newUser;
+        newUser = null;
+        pm.addPerson(newUser);
+        return navigationBean.redirectToDisplayAll();
     }
 
     public Person getUser() {
@@ -94,7 +113,8 @@ public class LoginBean implements LoggedUser, Serializable {
     }
 
     public boolean isLoggedIn() {
-        return (user instanceof Person);
+        System.out.println(user instanceof Person && user.getId() != null);
+        return (user instanceof Person && user.getId() != null);
     }
 
     public NavigationBean getNavigationBean() {
@@ -105,4 +125,19 @@ public class LoginBean implements LoggedUser, Serializable {
         this.navigationBean = navigationBean;
     }
 
+    public Person getNewUser() {
+        return newUser;
+    }
+
+    public void setNewUser(Person newUser) {
+        this.newUser = newUser;
+    }
+
+    @Override
+    public String toString() {
+        return "LoginBean [user=" + user + ", newUser=" + newUser + ", email=" + email + ", pwd="
+                + pwd + "]";
+    }
+
+    
 }

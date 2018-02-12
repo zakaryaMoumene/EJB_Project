@@ -23,7 +23,7 @@
       <div class="login">
 	<h:form>
 	<c:choose>
-      <c:when test="#{loginBean.user == null}" >  
+      <c:when test="#{!loginBean.loggedIn}" >  
 		<p:inputText id="username" value="#{loginBean.email}" placeholder ="email"></p:inputText>
 		<br></br><br></br>
 		
@@ -46,6 +46,8 @@
          <div><h:messages globalOnly="true" display="text"/></div>
       </div>
 	 <br></br><br></br><br></br><br></br>
+	 <h:commandLink action="#{loginBean.createNewUser}" value="S'inscrire"/>
+	 <br></br><br></br>
 	<h:commandLink action="/displayAll.xhtml" value="Mode non connecté"/>
 	</h:form>
 	

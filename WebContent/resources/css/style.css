@@ -73,6 +73,14 @@ textarea {
 	background: rgba(242, 243, 235, 0.38);
 }
 
+#container2 {
+	border: solid 1px #ffffff;
+	max-width: 40%;
+	margin: 2% 2%;
+	position: relative;
+	background: rgba(242, 243, 235, 0.38);
+}
+
 form {
 	padding: 37.5px;
 	margin: 0 0;

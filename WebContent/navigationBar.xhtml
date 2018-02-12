@@ -23,7 +23,7 @@ xmlns:h="http://java.sun.com/jsf/html"
             <h:link outcome="/searchForm" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-search"></i> CHERCHER</h:link>
 			
 			<c:choose>
-      			<c:when test="#{loginBean.user != null}" > 
+      			<c:when test="#{loginBean.loggedIn}" > 
       			<h:link outcome="#{cvController.initEdition()}" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-pencil-square-o"></i> EDITER VOTRE PROFILE
 			</h:link> 
 			
