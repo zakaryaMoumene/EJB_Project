@@ -9,6 +9,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.hibernate.Hibernate;
+
 import cvmanagement.entities.Activity;
 import cvmanagement.entities.Person;
 
@@ -38,7 +40,10 @@ public class CvManager implements PersonServiceLocal {
         requete.setParameter(PARAM_MAIL, personEmail);
         if (requete.getResultList().isEmpty())
             return null;
-        return (Person) requete.getSingleResult();
+        Person p  = (Person) requete.getSingleResult();
+        Hibernate.initialize(p.getActivities());
+        
+        return p;
     }
 
     @Override
@@ -95,7 +100,10 @@ public class CvManager implements PersonServiceLocal {
 
     @Override
     public Person findPersonById(Long personId) {
-        return entityManager.find(Person.class, personId);
+        Person p =entityManager.find(Person.class, personId); 
+        Hibernate.initialize(p.getActivities());
+        
+        return p;
     }
 
     @Override
@@ -119,20 +127,20 @@ public class CvManager implements PersonServiceLocal {
                 }
             }
         }
-        
+
         if (flag)
             return null;
-        
-        System.out.println(query);
 
         Query requete = entityManager.createQuery(query);
 
         for (int i = 0; i < params.length; i++) {
             if (params[i] != null && !params[i].equals(""))
-                requete.setParameter(paramNames[i], params[i]);
+                if (i != 4 || params[i] instanceof Integer)
+                    requete.setParameter(paramNames[i], params[i]);
+                else
+                    requete.setParameter(paramNames[i], Integer.valueOf((String) params[i]));
         }
 
-        
         return requete.getResultList();
     }
 

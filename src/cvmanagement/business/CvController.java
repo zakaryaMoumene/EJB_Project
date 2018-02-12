@@ -33,7 +33,7 @@ public class CvController {
     PersonServiceLocal cvManager;
 
     private List<Person> persons = new ArrayList<Person>();
-    
+
     private List<Activity> activities_t = new ArrayList<Activity>();
 
     private List<Person> searchResult = new ArrayList<Person>();
@@ -90,7 +90,6 @@ public class CvController {
     public String updateCv() {
         person.setActivities(activities_t);
         cvManager.updatePerson(person);
-        cvManager.cleanActivities();
         refresh();
         return "/displayAll.xhtml?faces-redirect=true";
     }
@@ -100,8 +99,8 @@ public class CvController {
     }
 
     public List<Person> getAll() {
-        if (persons.isEmpty()){
-            persons =  cvManager.findAll();
+        if (persons.isEmpty()) {
+            persons = cvManager.findAll();
         }
         return persons;
     }

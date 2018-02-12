@@ -28,8 +28,7 @@ public class TestDB3 {
         
         params[4] = 2017;
         
-        System.out.println(pm.search(params));
-        
+        pm.search(params);
     }
 
 }

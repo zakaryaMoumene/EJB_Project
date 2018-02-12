@@ -63,6 +63,16 @@
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
+				<p:column headerText="Year" style="width:5%">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{act.year}" class="dis"/>
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{act.year}" type="number" min="1950" max="2018" step="1" style="width:96%" label="Year" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
 				<p:column headerText="Nature" style="width:15%">
 					<p:cellEditor>
 						<f:facet name="output">
@@ -76,16 +86,6 @@
 						</f:facet>
 					</p:cellEditor>
 					</p:column>
-				<p:column headerText="Year" style="width:5%">
-					<p:cellEditor>
-						<f:facet name="output">
-							<h:outputText value="#{act.year}" class="dis"/>
-						</f:facet>
-						<f:facet name="input">
-							<p:inputText value="#{act.year}" type="number" min="1950" max="2018" step="1" style="width:96%" label="Year" />
-						</f:facet>
-					</p:cellEditor>
-				</p:column>
 					<p:column headerText="Descriptive Text">
 					<p:cellEditor>
 						<f:facet name="output">
@@ -109,11 +109,11 @@
 			</p:contextMenu>
 
 			<p:commandLink actionListener="#{cvController.addActivity}"
-				 process="actDataTable" update="editform:actDataTable" ><i class="fa fa-plus-square" style="font-size:32px;color:black"></i></p:commandLink>
+				 process="actDataTable" update="editform:actDataTable editform:submitButton" ><i class="fa fa-plus-square" style="font-size:32px;color:black"></i></p:commandLink>
 <br/> <br/><br/>
 
 					<p:commandButton id="submitButton" action="#{cvController.updateCv}" value="CONFIRMER" style="float:right;width:30%;margin-right:35%;"
-						ajax="true" validateClient="true" process="@this" update="editform:actDataTable"  disabled="#{facesContext.validationFailed}">
+						ajax="true" update="editform:actDataTable"  disabled="#{facesContext.validationFailed}">
 						</p:commandButton>
 		<br/> 
 		</h:form>

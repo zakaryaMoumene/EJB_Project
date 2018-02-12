@@ -25,11 +25,11 @@ public class TestDB {
     public TestDB() throws Exception {
         EJBContainer.createEJBContainer().getContext().bind("inject", this);
     }
-
-    @Test
-    public void testPersonManagerNotNull() {
-        assertNotNull(pm);
-    }
+//
+//    @Test
+//    public void testPersonManagerNotNull() {
+//        assertNotNull(pm);
+//    }
 
     @Before
     public void setUp() {

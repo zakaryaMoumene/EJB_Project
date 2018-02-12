@@ -77,7 +77,7 @@ public class TestDB4 {
     public void test(){
         Object[] params = {"houssem","mjid",null,null,"2017"};
         
-        System.out.println(pm.search(params));
+        pm.search(params);
         
     }
 

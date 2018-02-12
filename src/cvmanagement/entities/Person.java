@@ -88,7 +88,7 @@ public class Person implements Serializable {
     @Column(name = "password", length = 50)
     private String password;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+    @OneToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL }, orphanRemoval = true)
     @JoinColumn(name = "personId")
     private Collection<Activity> activities;
 
