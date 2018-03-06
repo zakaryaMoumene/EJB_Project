@@ -16,7 +16,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "activity")
-public class Activity implements Serializable{
+public class Activity implements Serializable {
 
     /**
      * 
@@ -25,8 +25,6 @@ public class Activity implements Serializable{
 
     public Activity() {
     }
-    
-    
 
     public Activity(String title, String descriptiveText, String website, Integer year,
             String nature) {
@@ -37,8 +35,6 @@ public class Activity implements Serializable{
         this.year = year;
         this.nature = nature;
     }
-
-
 
     @Id
     @Column(name = "id", unique = true)
@@ -61,15 +57,15 @@ public class Activity implements Serializable{
 
     @NotNull
     @Column(name = "year")
-    @Max(value=2018)
-    @Min(value=1950)
+    @Max(value = 2018)
+    @Min(value = 1950)
     private Integer year;
 
     @NotNull
     @Column(name = "nature")
     @Pattern(regexp = "experience professionnelle|formation|autre", flags = Pattern.Flag.CASE_INSENSITIVE)
     private String nature;
-   
+
     public Long getId() {
         return id;
     }
@@ -102,19 +98,13 @@ public class Activity implements Serializable{
         this.website = website;
     }
 
-   
-
     public Integer getYear() {
         return year;
     }
 
-
-
     public void setYear(Integer year) {
         this.year = year;
     }
-
-
 
     public String getNature() {
         return nature;
@@ -123,8 +113,6 @@ public class Activity implements Serializable{
     public void setNature(String nature) {
         this.nature = nature;
     }
-
-   
 
     @Override
     public String toString() {
@@ -187,5 +175,10 @@ public class Activity implements Serializable{
         return true;
     }
 
-    
+    public boolean isNull() {
+        return (id == null && (title == null || title.isEmpty())
+                && (descriptiveText == null || descriptiveText.isEmpty()) && year == null
+                && (website == null || website.isEmpty()) && (nature == null || nature.isEmpty()));
+    }
+
 }

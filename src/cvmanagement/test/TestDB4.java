@@ -11,14 +11,14 @@ import javax.ejb.embeddable.EJBContainer;
 import org.junit.Before;
 import org.junit.Test;
 
-import cvmanagement.business.PersonServiceLocal;
+import cvmanagement.business.interfaces.CvManagementService;
 import cvmanagement.entities.Activity;
 import cvmanagement.entities.Person;
 
 public class TestDB4 {
 
     @EJB
-    PersonServiceLocal pm;
+    CvManagementService pm;
 
     public TestDB4() throws Exception {
         EJBContainer.createEJBContainer().getContext().bind("inject", this);

@@ -16,8 +16,10 @@
    <h:outputStylesheet library="css" name="style.css" />
       <div class="body2"></div>
       <div id="container">
+      
          <h:form id="form">
-    <p:dataGrid var="person" value="#{cvController.getAll()}" columns="4" layout="grid"
+         <p:commandLink action="#{cvManagementView.refresh()}"  update=":form:persons" ><i class="material-icons" style="font-size:32px;color:blue;margin-left:49%;margin-top:-4%;">autorenew</i></p:commandLink>
+    <p:dataGrid var="person" value="#{cvManagementView.getAll()}" columns="4" layout="grid"
         rows="8" paginator="true" id="persons"
         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
         >

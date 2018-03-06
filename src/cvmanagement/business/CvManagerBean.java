@@ -1,10 +1,12 @@
 package cvmanagement.business;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -12,12 +14,14 @@ import javax.validation.Valid;
 
 import org.hibernate.Hibernate;
 
+import cvmanagement.business.interfaces.IPasswordAuthentification;
+import cvmanagement.business.interfaces.CvManagementService;
 import cvmanagement.entities.Activity;
 import cvmanagement.entities.Person;
 
 @Stateless
 @TransactionManagement(TransactionManagementType.CONTAINER)
-public class CvManager implements PersonServiceLocal {
+public class CvManagerBean implements CvManagementService {
 
     private static final String SELECT_ALL = "SELECT p FROM Person p";
     private static final String SELECT_MAIL = "SELECT p FROM Person p WHERE p.mail=:mail";
@@ -26,7 +30,12 @@ public class CvManager implements PersonServiceLocal {
     @PersistenceContext(unitName = "cvunit")
     private EntityManager entityManager;
 
-    PasswordAuthentification passAuth = new PasswordAuthentification();
+    
+    public CvManagerBean() {
+    }
+
+    @Inject
+    IPasswordAuthentification passAuth;
 
     @Override
     public Long addPerson(@Valid Person person) {
@@ -41,9 +50,9 @@ public class CvManager implements PersonServiceLocal {
         requete.setParameter(PARAM_MAIL, personEmail);
         if (requete.getResultList().isEmpty())
             return null;
-        Person p  = (Person) requete.getSingleResult();
+        Person p = (Person) requete.getSingleResult();
         Hibernate.initialize(p.getActivities());
-        
+
         return p;
     }
 
@@ -85,9 +94,10 @@ public class CvManager implements PersonServiceLocal {
             entityManager.merge(person);
     }
 
-    public void cleanActivities() {
-        entityManager.createNativeQuery("delete from activity where personId is null")
-                .executeUpdate();
+    public void cleanActivities(Collection<Activity> collection) {
+        for (Activity a : collection)
+            if (a.isNull())
+                collection.remove(a);
     }
 
     @SuppressWarnings("unchecked")
@@ -101,9 +111,9 @@ public class CvManager implements PersonServiceLocal {
 
     @Override
     public Person findPersonById(Long personId) {
-        Person p =entityManager.find(Person.class, personId); 
+        Person p = entityManager.find(Person.class, personId);
         Hibernate.initialize(p.getActivities());
-        
+
         return p;
     }
 
@@ -141,8 +151,9 @@ public class CvManager implements PersonServiceLocal {
                 else
                     requete.setParameter(paramNames[i], Integer.valueOf((String) params[i]));
         }
-
+        
         return requete.getResultList();
     }
+    
 
 }

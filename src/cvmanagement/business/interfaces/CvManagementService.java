@@ -1,5 +1,6 @@
-package cvmanagement.business;
+package cvmanagement.business.interfaces;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -8,7 +9,7 @@ import cvmanagement.entities.Activity;
 import cvmanagement.entities.Person;
 
 @Local
-public interface PersonServiceLocal {
+public interface CvManagementService {
 
 	public Long addPerson(Person person);
 
@@ -24,7 +25,7 @@ public interface PersonServiceLocal {
 
     void deleteActivity(Activity activity, Person person);
     
-    void cleanActivities();
+    void cleanActivities(Collection<Activity> acitivites);
 
     public List<Person> findAll();
 

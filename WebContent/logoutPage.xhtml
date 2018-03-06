@@ -22,9 +22,9 @@
             <i class="material-icons" style="font-size:50px;color:red;margin-left:7%;">done</i>
          </div>
          <c:choose>
-         <c:when test="#{loginBean.loggedIn}">
+         <c:when test="#{userLoginView.loggedIn}">
          
-         <h:link outcome ="#{loginBean.doLogout()}"/>
+         <h:link outcome ="#{userLoginView.doLogout()}"/>
          
          <h2 style="text-align:center;margin-bottom:5px;">Déconnexion réussie</h2>
          

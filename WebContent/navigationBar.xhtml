@@ -12,23 +12,26 @@ xmlns:h="http://java.sun.com/jsf/html"
       .w3-hover-opacity {cursor: pointer;}
    </style>
    <body>
-      <div class="w3-top">
+   
+      <div class="w3-top" style="margin-top:-2%;">
+      <h:form>
          <div class="w3-bar" id="myNavbar" style="">
+         
             <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
             <i class="fa fa-bars"></i>
             </a>
-           
+           	
             <h:link outcome="/displayAll" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-home"></i> HOME</h:link>
            
             <h:link outcome="/searchForm" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-search"></i> CHERCHER</h:link>
 			
 			<c:choose>
-      			<c:when test="#{loginBean.loggedIn}" > 
-      			<h:link outcome="#{cvController.initEdition()}" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-pencil-square-o"></i> EDITER VOTRE PROFILE
+      			<c:when test="#{userLoginView.loggedIn}" > 
+      			<h:link outcome="#{loggedUser.initEdition()}" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-pencil-square-o"></i> EDITER VOTRE PROFILE
 			</h:link> 
 			
-          	<h:link outcome ="/logoutPage" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">
-            <i class="fa fa-sign-out"></i></h:link>
+          	<h:commandLink action ="#{userLoginView.doLogout}" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">
+            <i class="fa fa-sign-out"></i></h:commandLink>
             </c:when>
             
             <c:otherwise>
@@ -36,8 +39,11 @@ xmlns:h="http://java.sun.com/jsf/html"
             <i class="fa fa-sign-in"  style="font-size:24px;color:Green"></i></h:link>
             </c:otherwise>
             </c:choose>
+            
          </div>
+         </h:form>
       </div>
+      
       <br/>
       <br/>
    </body>

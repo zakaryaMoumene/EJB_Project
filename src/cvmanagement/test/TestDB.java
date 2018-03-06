@@ -13,14 +13,14 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import cvmanagement.business.PersonServiceLocal;
+import cvmanagement.business.interfaces.CvManagementService;
 import cvmanagement.entities.Activity;
 import cvmanagement.entities.Person;
 
 public class TestDB {
 
     @EJB
-    PersonServiceLocal pm;
+    CvManagementService pm;
 
     public TestDB() throws Exception {
         EJBContainer.createEJBContainer().getContext().bind("inject", this);

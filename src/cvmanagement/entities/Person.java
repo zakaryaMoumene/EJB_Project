@@ -58,13 +58,13 @@ public class Person implements Serializable {
     @NotNull
     @Size(min = 1, message = "First Name is mandatory!")
     @Column(name = "firstname", length = 50)
-    @Pattern(regexp = "[A-Za-z]+", message = "Nom:Caracteres invalides")
+    @Pattern(regexp = "[A-Za-z]*", message = "Nom:Caracteres invalides")
     private String firstName;
 
     @NotNull
     @Size(min = 1, message = "Last Name is mandatory!")
     @Column(name = "lastname", length = 50)
-    @Pattern(regexp = "[A-Za-z]+", message = "Prénom:Caracteres invalides")
+    @Pattern(regexp = "[A-Za-z]*", message = "Prénom:Caracteres invalides")
     private String lastName;
 
     @NotNull(message = "Email field cannot be null!")

@@ -22,19 +22,19 @@
 		<h:form id="searchForm">
 			<p:growl id="msgs" showDetail="true" />
 			<h:panelGrid columns="5" >
-							<p:inputText placeholder="Prénom" value="#{cvController.searchParams[0]}"><p:ajax event="keyup"/></p:inputText>
-							<p:inputText placeholder="Nom" value="#{cvController.searchParams[1]}" ><p:ajax event="keyup"/></p:inputText>
-							<p:inputText placeholder="Email" value="#{cvController.searchParams[2]}" ><p:ajax event="keyup"/></p:inputText>
-							<p:inputText placeholder="Titre d'une activité" value="#{cvController.searchParams[3]}" ><p:ajax event="keyup"/></p:inputText>
-							<p:inputText placeholder="Année d'une activité" value="#{cvController.searchParams[4]}"><p:ajax event="keyup"/></p:inputText>
+							<p:inputText placeholder="Prénom" value="#{cvManagementView.searchParams[0]}"><p:ajax event="keyup"/></p:inputText>
+							<p:inputText placeholder="Nom" value="#{cvManagementView.searchParams[1]}" ><p:ajax event="keyup"/></p:inputText>
+							<p:inputText placeholder="Email" value="#{cvManagementView.searchParams[2]}" ><p:ajax event="keyup"/></p:inputText>
+							<p:inputText placeholder="Titre d'une activité" value="#{cvManagementView.searchParams[3]}" ><p:ajax event="keyup"/></p:inputText>
+							<p:inputText placeholder="Année d'une activité" value="#{cvManagementView.searchParams[4]}"><p:ajax event="keyup"/></p:inputText>
 			</h:panelGrid>
 <br/> <br/>
-			<p:commandLink id = "form_button" action="#{cvController.search}" style="float:right;margin-right:47%;margin-top:-2%;"
+			<h:commandLink id = "form_button" action="#{cvManagementView.search()}" style="float:right;margin-right:47%;margin-top:-2%;"
 				ajax="true" process="@this" update=":result:persons" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-search"> GO</i>
-				</p:commandLink>
+				</h:commandLink>
 		</h:form>
 		 <h:form id="result" style="margin-top:-3%;">
-    <p:dataGrid var="person" value="#{cvController.searchResult}" columns="3" layout="grid"
+    <p:dataGrid var="person" value="#{cvManagementView.searchResult}" columns="3" layout="grid"
         rows="3" paginator="true" id="persons"
         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
         >

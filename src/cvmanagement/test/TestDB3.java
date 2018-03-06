@@ -6,12 +6,12 @@ import javax.ejb.embeddable.EJBContainer;
 import org.junit.Before;
 import org.junit.Test;
 
-import cvmanagement.business.PersonServiceLocal;
+import cvmanagement.business.interfaces.CvManagementService;
 
 public class TestDB3 {
 
     @EJB
-    PersonServiceLocal pm;
+    CvManagementService pm;
 
     public TestDB3() throws Exception {
         EJBContainer.createEJBContainer().getContext().bind("inject", this);

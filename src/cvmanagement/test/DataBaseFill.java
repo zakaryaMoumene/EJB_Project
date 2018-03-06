@@ -17,7 +17,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import cvmanagement.business.PersonServiceLocal;
+import cvmanagement.business.interfaces.CvManagementService;
 import cvmanagement.entities.Activity;
 import cvmanagement.entities.Person;
 
@@ -25,7 +25,7 @@ import cvmanagement.entities.Person;
 public class DataBaseFill {
 
     @EJB
-    PersonServiceLocal pm;
+    CvManagementService pm;
     
     public DataBaseFill() throws NamingException {
         EJBContainer.createEJBContainer().getContext().bind("inject", this);
