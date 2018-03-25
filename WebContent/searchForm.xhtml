@@ -29,9 +29,9 @@
 							<p:inputText placeholder="Année d'une activité" value="#{cvManagementView.searchParams[4]}"><p:ajax event="keyup"/></p:inputText>
 			</h:panelGrid>
 <br/> <br/>
-			<h:commandLink id = "form_button" action="#{cvManagementView.search()}" style="float:right;margin-right:47%;margin-top:-2%;"
-				ajax="true" process="@this" update=":result:persons" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-search"> GO</i>
-				</h:commandLink>
+			<p:commandLink id = "form_button" action="#{cvManagementView.search()}" style="float:right;margin-right:47%;margin-top:-2%;"
+				ajax="true" update=":result:persons" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-search"> GO</i>
+				</p:commandLink>
 		</h:form>
 		 <h:form id="result" style="margin-top:-3%;">
     <p:dataGrid var="person" value="#{cvManagementView.searchResult}" columns="3" layout="grid"

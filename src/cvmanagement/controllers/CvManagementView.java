@@ -78,6 +78,7 @@ public class CvManagementView implements Serializable {
         LoggedUserService loggedUser = SessionUtils.getLoggedUser();
         loggedUser.updateCv();
         cvManager.updatePerson(loggedUser.getUser());
+        loggedUser.setUser(cvManager.findPersonById(loggedUser.getUser().getId()));
         return navigationBean.redirectToDisplayAll();
     }
 

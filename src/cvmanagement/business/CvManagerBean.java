@@ -30,7 +30,6 @@ public class CvManagerBean implements CvManagementService {
     @PersistenceContext(unitName = "cvunit")
     private EntityManager entityManager;
 
-    
     public CvManagerBean() {
     }
 
@@ -112,7 +111,9 @@ public class CvManagerBean implements CvManagementService {
     @Override
     public Person findPersonById(Long personId) {
         Person p = entityManager.find(Person.class, personId);
-        Hibernate.initialize(p.getActivities());
+
+        if (p != null)
+            Hibernate.initialize(p.getActivities());
 
         return p;
     }
@@ -151,9 +152,8 @@ public class CvManagerBean implements CvManagementService {
                 else
                     requete.setParameter(paramNames[i], Integer.valueOf((String) params[i]));
         }
-        
+
         return requete.getResultList();
     }
-    
 
 }

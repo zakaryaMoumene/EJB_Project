@@ -56,6 +56,7 @@ public class LoggedUser implements LoggedUserService {
         for (Activity a : activities_t)
             if (!a.isNull())
                 user.getActivities().add(a);
+        System.out.println(user);
     }
 
     public void onCellEdit(CellEditEvent event) {

@@ -77,6 +77,7 @@ public class UserLoginView implements Serializable {
     public String createNewUser() {
         if (!isLoggedIn()) {
             user = new Person();
+            System.out.println("new user "+user );
             return "/signIn.xhtml?faces-redirect=true";
         }
         return navigationBean.redirectToDisplayAll();

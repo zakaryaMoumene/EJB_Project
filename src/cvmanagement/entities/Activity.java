@@ -14,6 +14,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 @Entity
 @Table(name = "activity")
 public class Activity implements Serializable {
@@ -62,6 +64,7 @@ public class Activity implements Serializable {
     private Integer year;
 
     @NotNull
+    @NotEmpty
     @Column(name = "nature")
     @Pattern(regexp = "experience professionnelle|formation|autre", flags = Pattern.Flag.CASE_INSENSITIVE)
     private String nature;

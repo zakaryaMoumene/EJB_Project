@@ -23,6 +23,7 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.LocalDate;
 import org.joda.time.Years;
 
@@ -68,12 +69,12 @@ public class Person implements Serializable {
     private String lastName;
 
     @NotNull(message = "Email field cannot be null!")
-    @Length(max = 100, message = "Not greater than {max} caracteres for Email field!")
+    @Length(min=1, message = "trop petit!")
     @Column(name = "mail", length = 100, unique = true)
     @Email
     private String mail;
 
-    @Size(min = 3, max = 100, message = "Website must be between [5-100] characters")
+    @Size(min = 3, max = 100, message = "Website must be between [3-100] characters")
     @Column(name = "website", length = 50)
     private String website;
 

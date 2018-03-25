@@ -9,6 +9,9 @@
 
 <h:head>
 	<title>signIn</title>
+	 <c:if test ="${userLoginView.user==null}">
+        	<h:link style="display: none;" outcome="#{userLoginView.createNewUser()}"/>
+        </c:if>
 </h:head>
 
 <h:body>
@@ -23,13 +26,12 @@
         <f:facet name="header">
             <p:growl id="msgs" showDetail="false" />
         </f:facet>
-        
-        <p:outputLabel for="firstname" value="Firstname:" />
+        <p:outputLabel for="firstname" value="Prénom:" />
         <p:inputText id = "firstname" value="#{userLoginView.user.firstName}"
 								><p:ajax event="blur" listener="#{userLoginView.onCellEdit}"
 					update="signInForm:msgs"/></p:inputText>
 								
-		<p:outputLabel for="lastname" value="Lastname:" />
+		<p:outputLabel for="lastname" value="Nom:" />
         <p:inputText id = "lastname" value="#{userLoginView.user.lastName}"
 								><p:ajax event="blur" listener="#{userLoginView.onCellEdit}"
 					update="signInForm:msgs"/></p:inputText>
@@ -49,7 +51,7 @@
             <p:ajax event="blur" listener="#{userLoginView.onCellEdit}"
 					update="signInForm:msgs"/></p:calendar>
 								
-		<p:outputLabel for="password" value="Password:" />
+		<p:outputLabel for="password" value="Mot de passe:" />
 		<div>
         <p:password id="password" value="#{userLoginView.user.password}" match="password_confirmation"><p:ajax event="blur" listener="#{userLoginView.onCellEdit}"
 					update="signInForm:msgs"/></p:password>
