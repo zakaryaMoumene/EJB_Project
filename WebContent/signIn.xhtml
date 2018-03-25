@@ -9,6 +9,7 @@
 
 <h:head>
 	<title>signIn</title>
+	
 	 <c:if test ="${userLoginView.user==null}">
         	<h:link style="display: none;" outcome="#{userLoginView.createNewUser()}"/>
         </c:if>
@@ -19,7 +20,13 @@
 <h:outputStylesheet library="css" name="style.css" />
 <div class="body2"></div>
 
+
 	<div style="width:50%; margin-left:25%;background:rgba(242, 243, 235, 0.38);" >
+	<c:choose>
+<c:when test="#{userLoginView.loggedIn}">
+		<h1 style="color:red;">Veuillez déconnecter ce compte avant</h1>
+	</c:when>
+	<c:otherwise>
          <h1>Formulaire d'inscription</h1>
 		<h:form id="signInForm">
     <h:panelGrid id="grid" cellpadding="5" columns="2" style="margin-bottom:5px;margin-top:-10%;">
@@ -59,9 +66,13 @@
 		<p:password placeholder = "Confirmer" id="password_confirmation"/>
 		</div>
 </h:panelGrid>
-        <h:commandButton value="Valider" action="#{userLoginView.doSignIn}" update="signInForm:msgs" />
+        <p:commandButton value="Valider" action="#{userLoginView.doSignIn}" style="margin-left:30%;" update="signInForm:msgs" />
 </h:form>
+</c:otherwise>
+	</c:choose>
+
 	</div>
+	
 	<h:outputScript library="js" name="formAnims.js" />
 </h:body>
 	

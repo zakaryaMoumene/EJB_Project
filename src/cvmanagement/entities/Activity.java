@@ -44,29 +44,29 @@ public class Activity implements Serializable {
     private Long id;
 
     @NotNull
-    @Size(min = 1, message = "Title is mandatory!")
+    @Size(min = 1, message = "Titre obligatoire!")
     @Column(name = "title", length = 50)
     private String title;
 
     @NotNull
-    @Size(min = 1, message = "Description is mandatory!")
+    @Size(min = 1, message = "Description obligatoire!")
     @Column(name = "descriptivetext", length = 300)
     private String descriptiveText;
 
-    @Size(min = 3, max = 100, message = "Website must be between [3-100] " + "characters")
+    @Size(min = 3, max = 100, message = "L'url doit être entre 3 et 100 caractères")
     @Column(name = "website", length = 50)
     private String website;
 
     @NotNull
+    @Max(value = 2018, message = "voyageur dans le temps ?")
+    @Min(value = 1900, message = "immortel êtes vous?")
     @Column(name = "year")
-    @Max(value = 2018)
-    @Min(value = 1950)
     private Integer year;
 
-    @NotNull
-    @NotEmpty
-    @Column(name = "nature")
+    @NotNull(message = "Nature obligatoire!")
+    @NotEmpty(message = "Nature obligatoire!")
     @Pattern(regexp = "experience professionnelle|formation|autre", flags = Pattern.Flag.CASE_INSENSITIVE)
+    @Column(name = "nature")
     private String nature;
 
     public Long getId() {

@@ -23,7 +23,6 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.LocalDate;
 import org.joda.time.Years;
 
@@ -57,34 +56,34 @@ public class Person implements Serializable {
     private Long id;
 
     @NotNull
-    @Size(min = 1, message = "First Name is mandatory!")
+    @Size(min = 1, message = "Prénom obligatoire!")
     @Column(name = "firstname", length = 50)
-    @Pattern(regexp = "[A-Za-z]*", message = "Nom:Caracteres invalides")
+    @Pattern(regexp = "[\u00C0-\u017Fa-zA-Z']+([- ][\u00C0-\u017Fa-zA-Z']+)*", message = "Nom:Caracteres invalides")
     private String firstName;
 
     @NotNull
-    @Size(min = 1, message = "Last Name is mandatory!")
+    @Size(min = 1, message = "Nom obligatoire!")
     @Column(name = "lastname", length = 50)
-    @Pattern(regexp = "[A-Za-z]*", message = "Prénom:Caracteres invalides")
+    @Pattern(regexp = "[\u00C0-\u017Fa-zA-Z']+([- ][\u00C0-\u017Fa-zA-Z']+)*", message = "Prénom:Caracteres invalides")
     private String lastName;
 
-    @NotNull(message = "Email field cannot be null!")
+    @NotNull(message = "L'email obligatoire")
     @Length(min=1, message = "trop petit!")
     @Column(name = "mail", length = 100, unique = true)
-    @Email
+    @Email(message="Email incorrecte")
     private String mail;
 
     @Size(min = 3, max = 100, message = "Website must be between [3-100] characters")
     @Column(name = "website", length = 50)
     private String website;
 
-    @NotNull
+    @NotNull(message= "Email obligatoire")
     @Past(message = "Trop récent !")
     @Column(name = "birthday")
     @Temporal(TemporalType.DATE)
     private Date birthday;
 
-    @NotNull(message = "Password may not be null")
+    @NotNull(message = "Mot de passe obligatoire")
     @Size(min = 6, max = 50, message = "Mot de passe de taille entre 6 et 50")
     @Column(name = "password", length = 50)
     private String password;
