@@ -1,0 +1,50 @@
+<ui:composition 
+xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+xmlns:p="http://primefaces.org/ui"
+xmlns:c="http://java.sun.com/jsp/jstl/core"
+xmlns:h="http://java.sun.com/jsf/html"
+>
+   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato"/>
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+   <style>
+      .w3-wide {letter-spacing: 10px;}
+      .w3-hover-opacity {cursor: pointer;}
+   </style>
+   <body>
+   
+      <div class="w3-top" style="margin-top:-2%;">
+      <h:form>
+         <div class="w3-bar" id="myNavbar" style="">
+         
+            <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
+            <i class="fa fa-bars"></i>
+            </a>
+           	
+            <h:link outcome="/displayAll" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-home"></i> HOME</h:link>
+           
+            <h:link outcome="/searchForm" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-search"></i> CHERCHER</h:link>
+			
+			<c:choose>
+      			<c:when test="#{userLoginView.loggedIn}" > 
+      			<h:link outcome="#{loggedUser.initEdition()}" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-pencil-square-o"></i> EDITER VOTRE PROFILE
+			</h:link> 
+			
+          	<p:commandLink action ="#{userLoginView.doLogout()}" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">
+            <i class="fa fa-sign-out"></i></p:commandLink>
+            </c:when>
+            
+            <c:otherwise>
+            <h:link outcome="login" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-white">
+            <i class="fa fa-sign-in"  style="font-size:24px;color:Green"></i></h:link>
+            </c:otherwise>
+            </c:choose>
+            
+         </div>
+         </h:form>
+      </div>
+      
+      <br/>
+      <br/>
+   </body>
+</ui:composition>

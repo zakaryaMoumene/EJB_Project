@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    >
+    <ui:include src="/navigationBar.xhtml" />
+   <h:head>
+      <title>${person.firstName}</title>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+   </h:head>
+   <h:body>
+   <h:outputStylesheet library="css" name="style.css" />
+      <div class="body2"></div>
+      <div id="container">
+      
+         <h:form id="form">
+         <p:commandLink action="#{cvManagementView.refresh()}"  update=":form:persons" ><i class="material-icons" style="font-size:32px;color:blue;margin-left:49%;margin-top:-4%;">autorenew</i></p:commandLink>
+    <p:dataGrid var="person" value="#{cvManagementView.getAll()}" columns="5" layout="grid"
+        rows="10" paginator="true" id="persons"
+        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+        >
+ 
+        <f:facet name="header">
+            Profiles
+        </f:facet>
+ 
+        <p:panel header="#{person.firstName} #{person.lastName}" style="text-align:center">
+            <h:panelGrid columns="1" style="width:100%">
+                        <h:link outcome="cvDisplay" >
+			    <f:param name="id" value="#{person.id}" />
+			    <img src="https://image.freepik.com/free-icon/user-warning_318-55040.jpg" alt="Picture not found" height="100" width="100" style="margin-left:25%;"/>
+			</h:link>
+            </h:panelGrid>
+        </p:panel>
+ 
+    </p:dataGrid>
+</h:form>
+      </div>
+   </h:body>
+</html>

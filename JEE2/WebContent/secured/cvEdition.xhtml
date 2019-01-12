@@ -1,0 +1,134 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:include src="/navigationBar.xhtml" />
+
+<h:head>
+	<link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"/>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+</h:head>
+
+<h:body>
+
+<h:outputStylesheet library="css" name="style.css" />
+	<div class="body2"></div>
+      <div id="container">
+         <h1>Formulaire d'édition du profile</h1>
+		<h:form id="edition">
+			<p:growl id="msgs" showDetail="false" />
+			<h:panelGrid columns="5" >
+        <p:inputText id = "firstname" value="#{loggedUser.user.firstName}"
+								><p:ajax event="blur" listener="#{loggedUser.onCellEdit}"
+					update="edition:msgs"/></p:inputText>
+								
+        <p:inputText id = "lastname" value="#{loggedUser.user.lastName}"
+								><p:ajax event="blur" listener="#{loggedUser.onCellEdit}"
+					update="edition:msgs"/></p:inputText>
+								
+        <p:inputText id = "email" value="#{loggedUser.user.mail}"
+								><p:ajax event="blur" listener="#{loggedUser.onCellEdit}"
+					update="edition:msgs"/></p:inputText>
+		
+        <p:inputText id = "website" value="#{loggedUser.user.website}"
+								><p:ajax event="blur" listener="#{loggedUser.onCellEdit}"
+					update="edition:msgs"/></p:inputText>
+		
+		<p:calendar  id= "birthday" value="#{loggedUser.user.birthday}">
+            <p:ajax event="blur" listener="#{loggedUser.onCellEdit}"
+					update="edition:msgs"/></p:calendar>
+		
+			</h:panelGrid>
+			<p:dataTable id="actDataTable" var="act"
+				value="#{loggedUser.activities_t}" editable="true"
+				editMode="cell">
+								
+				<p:column headerText="Titre" style="width:15%">
+					<p:cellEditor>
+						<f:facet name="output">
+							<p:outputLabel for="title" value="#{act.title}" class="dis" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="title" value="#{act.title}"
+								><p:ajax event="blur" listener="#{loggedUser.onCellEdit}"
+					update="edition:msgs"/></p:inputText>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="Site web" style="width:15%">
+					<p:cellEditor>
+						<f:facet name="output">
+							<p:outputLabel for="website" value="#{act.website}" class="dis" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="website" value="#{act.website}"
+								><p:ajax event="blur" listener="#{loggedUser.onCellEdit}"
+					update="edition:msgs"/></p:inputText>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="Année" style="width:5%">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText for="year" value="#{act.year}" class="dis" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="year" value="#{act.year}" type="number" min="1950" max="2018" step="1" 
+								><p:ajax event="blur" listener="#{loggedUser.onCellEdit}"
+					update="edition:msgs"/></p:inputText>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="Nature" style="width:15%">
+					<p:cellEditor>
+						<f:facet name="output">
+							<p:outputLabel for="nature" value="#{act.nature}" class="dis" />
+						</f:facet>
+						<f:facet name="input">
+							<h:selectOneMenu id = "nature" value="#{act.nature}">
+								<f:selectItems value="#{cvManagementView.natures}" var="nat"
+									itemLabel="#{nat}" itemValue="#{nat}" />
+									<p:ajax event="blur" listener="#{loggedUser.onCellEdit}"
+					update="edition:msgs"/>
+							</h:selectOneMenu>
+							
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="Description" style="width:45%">
+					<p:cellEditor>
+						<f:facet name="output">
+							<p:outputLabel for="description" value="#{act.descriptiveText}" class="dis" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="description" value="#{act.descriptiveText}"
+								><p:ajax event="blur" listener="#{loggedUser.onCellEdit}"
+					update="edition:msgs"/></p:inputText>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column style="width:5%;">
+					<p:commandLink action="#{loggedUser.deleteActivity(act)}" process="actDataTable" update=":edition:actDataTable" ><i class="material-icons" style="font-size:32px;color:red">cancel</i></p:commandLink>
+				</p:column>
+			</p:dataTable>
+			<p:contextMenu for="actDataTable" widgetVar="cMenu">
+				<p:menuitem value="Edit Cell" icon="ui-icon-search"
+					onclick="PF('cellAct').showCellEditor();return false;" />
+				<p:menuitem value="Hide Menu" icon="ui-icon-close"
+					onclick="PF('cMenu').hide()" />
+			</p:contextMenu>
+
+			<p:commandLink actionListener="#{loggedUser.addActivity}"
+				 process="actDataTable" update="edition:actDataTable edition:submitButton" ><i class="fa fa-plus-square" style="font-size:32px;color:black"></i></p:commandLink>
+<br/>
+					<p:commandButton id="submitButton" update="edition:msgs" action="#{cvManagementView.updateCv}" value="CONFIRMER" style="float:right;width:30%;margin-right:35%;"
+						/>
+		<br/> 
+		</h:form>
+		</div>
+</h:body>
+</html>

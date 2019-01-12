@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    >
+    
+    <ui:include src="/navigationBar.xhtml" />
+   <h:head>
+      <title>${person.firstName}</title>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+   </h:head>
+   <h:body>
+   <h:outputStylesheet library="css" name="style.css" />
+   
+   <c:set var="person" value="#{cvManagementView.findPerson(param.id)}" scope="request" />
+   
+      <div class="body2"></div>
+      <div id="container">
+      <c:choose><c:when test="${person == null}">
+      	<h1 style="color:red;">Cette personne n'existe pas</h1>
+      </c:when>
+      <c:otherwise>
+         <h1 id="personIdentity">
+            <h:outputText value="${person.firstName} " />
+            <h:outputText value="${person.lastName}" />
+             <span style="display:inline-block; width: 10px;"></span>
+               <h:outputText value="(#{person.getAge()} ans)">
+       		   </h:outputText>
+         </h1>
+         <h2>
+            <a href="mailto:${person.mail}">
+               <i class="material-icons">email</i><span style="display:inline-block; width: 10px;"></span>
+               <h:outputText value="${person.mail}"/>
+            </a>
+            <br></br>
+            <a href="${person.website}">
+               <i class="material-icons">public</i><span style="display:inline-block; width: 10px;"></span>
+               <h:outputText value="${person.website}"/>
+            </a>
+         </h2>
+         <br/>
+            <p:dataTable id="actDataTable" var="act"
+				value="#{person.activities}">
+                  <p:column headerText="Titre" style="width:15%">
+                     <h:outputText value="#{act.title}" class="dis" />
+                  </p:column>
+                    <p:column headerText="Nature" style="width:10%">
+                  	<h:outputText value="#{act.nature}" class="dis"/>
+                  </p:column>
+                  <p:column headerText="Site web" style="width:15%">
+                     <h:outputText value="#{act.website}" class="dis"/>
+                  </p:column>
+                  <p:column headerText="Année" style="width:5%">
+                     <h:outputText value="#{act.year}" class="dis" />
+                  </p:column>
+                  <p:column headerText="Description">
+                  	<h:outputText value="#{act.descriptiveText}" class="dis"/>
+                  </p:column>
+               </p:dataTable>
+               </c:otherwise>
+               </c:choose>
+      </div>
+   </h:body>
+</html>

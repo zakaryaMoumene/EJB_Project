@@ -1,0 +1,79 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:include src="/navigationBar.xhtml" />
+
+<h:head>
+	<title>signIn</title>
+	
+	 <c:if test ="${userLoginView.user==null}">
+        	<h:link style="display: none;" outcome="#{userLoginView.createNewUser()}"/>
+        </c:if>
+</h:head>
+
+<h:body>
+
+<h:outputStylesheet library="css" name="style.css" />
+<div class="body2"></div>
+
+
+	<div style="width:50%; margin-left:25%;background:rgba(242, 243, 235, 0.38);" >
+	<c:choose>
+<c:when test="#{userLoginView.loggedIn}">
+		<h1 style="color:red;">Veuillez déconnecter ce compte avant</h1>
+	</c:when>
+	<c:otherwise>
+         <h1>Formulaire d'inscription</h1>
+		<h:form id="signInForm">
+    <h:panelGrid id="grid" cellpadding="5" columns="2" style="margin-bottom:5px;margin-top:-10%;">
+        <f:facet name="header">
+            <p:growl id="msgs" showDetail="false" />
+        </f:facet>
+        <p:outputLabel for="firstname" value="Prénom:" />
+        <p:inputText id = "firstname" value="#{userLoginView.user.firstName}"
+								><p:ajax event="blur" listener="#{userLoginView.onCellEdit}"
+					update="signInForm:msgs"/></p:inputText>
+								
+		<p:outputLabel for="lastname" value="Nom:" />
+        <p:inputText id = "lastname" value="#{userLoginView.user.lastName}"
+								><p:ajax event="blur" listener="#{userLoginView.onCellEdit}"
+					update="signInForm:msgs"/></p:inputText>
+								
+		<p:outputLabel for="email" value="Adresse Email:" />
+        <p:inputText id = "email" value="#{userLoginView.user.mail}"
+								><p:ajax event="blur" listener="#{userLoginView.onCellEdit}"
+					update="signInForm:msgs"/></p:inputText>
+		
+		<p:outputLabel for="website" value="Site web:" />
+        <p:inputText id = "website" value="#{userLoginView.user.website}"
+								><p:ajax event="blur" listener="#{userLoginView.onCellEdit}"
+					update="signInForm:msgs"/></p:inputText>
+		
+		<p:outputLabel for="birthday" value="Date de naissance:" />
+		<p:calendar  id= "birthday" value="#{userLoginView.user.birthday}">
+            <p:ajax event="blur" listener="#{userLoginView.onCellEdit}"
+					update="signInForm:msgs"/></p:calendar>
+								
+		<p:outputLabel for="password" value="Mot de passe:" />
+		<div>
+        <p:password id="password" value="#{userLoginView.user.password}" match="password_confirmation"><p:ajax event="blur" listener="#{userLoginView.onCellEdit}"
+					update="signInForm:msgs"/></p:password>
+		
+		<p:password placeholder = "Confirmer" id="password_confirmation"/>
+		</div>
+</h:panelGrid>
+        <p:commandButton value="Valider" action="#{userLoginView.doSignIn}" style="margin-left:30%;" update="signInForm:msgs" />
+</h:form>
+</c:otherwise>
+	</c:choose>
+
+	</div>
+	
+	<h:outputScript library="js" name="formAnims.js" />
+</h:body>
+	
+</html>

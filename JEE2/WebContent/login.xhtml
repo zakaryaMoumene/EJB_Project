@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    >
+    
+<h:head>
+	<title>login</title>
+</h:head>
+<h:body>
+
+<h:outputStylesheet library="css" name="loginStyle.css" />
+
+ <div class="body"></div>
+      <div class="grad"></div>
+      
+      <div class="header">
+         <div>Gestionnaire de<span> CV</span></div>
+      </div>
+      <br/>
+      <div class="login">
+	<h:form>
+	<c:choose>
+      <c:when test="#{!userLoginView.loggedIn}" >  
+		<p:inputText id="username" value="#{userLoginView.email}" placeholder ="email"></p:inputText>
+		<br></br><br></br>
+		
+		<p:password id="feedback" value="#{userLoginView.pwd}" placeholder="password" />
+		<br></br><br></br>
+		
+		<p:commandButton action="#{userLoginView.doLogin}"
+			value="Login"></p:commandButton>
+			</c:when>
+			
+	<c:otherwise>
+		<h1>Déjà connecté</h1>
+		<h:outputText value = "#{userLoginView.user.id}"></h:outputText>
+		<h:link outcome="displayAll?faces-redirect=true"
+        value="Redirection au bureau" />
+        
+	</c:otherwise>
+	</c:choose>
+	<div class="notification" id="message">
+         <div><h:messages globalOnly="true" display="text"/></div>
+      </div>
+	 <br></br><br></br><br></br><br></br>
+	 <h:commandLink action="#{userLoginView.createNewUser}" value="S'inscrire"/>
+	 <br></br><br></br>
+	<h:commandLink action="/displayAll.xhtml" value="Mode non connecté"/>
+	</h:form>
+	
+	</div>
+	<h:outputScript library="js" name="formAnims.js" />
+</h:body>
+	
+</html>
